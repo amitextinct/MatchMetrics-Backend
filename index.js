@@ -6,7 +6,7 @@ const connection = require("./db");
 const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const bodyParser = require('body-parser');
-const matchController = require('./controllers/MatchController');
+const matchController = require('./controllers/matchController');
 // database connection
 connection();
 
