@@ -22,7 +22,11 @@ exports.getAllMatches = async (req, res) => {
 
 exports.getMatchById = async (req, res) => {
   try {
-    const match = await Match.findById(req.params.id);
+    const id = req.params.id;
+    const match = await Match.findById(id);
+    if (!match) {
+      return res.status(404).json({ message: "No match found with this ID." });
+    }
     res.json(match);
   } catch (error) {
     res.status(500).json({ error: error.message });
