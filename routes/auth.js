@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { User } = require("../models/user");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
-
 router.post("/", async (req, res) => {
 	try {
 		const { error } = validate(req.body);
@@ -21,17 +20,18 @@ router.post("/", async (req, res) => {
 			return res.status(401).send({ message: "Invalid Email or Password" });
 
 		const token = user.generateAuthToken();
+		console.log(token);
 		res.status(200).send({ data: { 
             token: token, 
             firstName: user.firstName, 
             lastName: user.lastName, 
-            email: user.email 
+            email: user.email ,
+			imageUrl: user.imageUrl,
         }, message: "logged in successfully" });
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
-
 const validate = (data) => {
 	const schema = Joi.object({
 		email: Joi.string().email().required().label("Email"),
